@@ -8,5 +8,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-ENTRYPOINT ["fastapi", "run", "app.py"]
+ENTRYPOINT ["fastapi", "run", "main.py"]
 
