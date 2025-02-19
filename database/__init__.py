@@ -1,6 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from .schemas import Base, User
+from .schemas import (
+    Base,
+    User,
+    Task,
+    UserTask,
+)
 
 DATABASE_URL = "db/teams.db"
 

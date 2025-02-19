@@ -7,6 +7,6 @@ from fastapi import Depends
 router = APIRouter()
 
 
-@router.get("/users")
+@router.get("api/users")
 def get_users(db: Session = Depends(get_db)):
-    return UsersService(db).test()
+    return UsersService(db)
