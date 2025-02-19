@@ -1,8 +1,16 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from .schemas import Teams
+from .schemas import Base, User
 
-DATABASE_URL = "sqlite:///db/teams.db"
+DATABASE_URL = "db/teams.db"
 
 engine = create_engine(f"sqlite:///{DATABASE_URL}")
-SessionLocal = sessionmaker(engine)
+SessionLocal = sessionmaker(autoflush=False, bind=engine)
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
