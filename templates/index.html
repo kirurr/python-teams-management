@@ -1,14 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-<body>
-		nigger
-		<pre>
-			{{ tasks }}
-		</pre>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}" />
+    <script src="{{ url_for('static', path='main.js') }}"></script>
+    <title>Teams management</title>
+  </head>
+  <body>
+    <header>
+      <h1>Teams management</h1>
+    </header>
+
+    <main class="container">
+      <form
+        class="form-grid card"
+        id="user-form"
+        action="/api/users/"
+        method="POST"
+        onsubmit="createUser(event)"
+      >
+        <h2>New user</h2>
+        <input
+          class="input"
+          required
+          type="text"
+          name="name"
+          placeholder="Enter user name"
+        />
+        <button class="button" type="submit">Add user</button>
+        <span class="error"></span>
+      </form>
+      <form
+        class="form-grid card"
+        id="task-form"
+        action="/api/tasks/"
+        method="POST"
+        onsubmit="createTask(event)"
+      >
+        <h2>New task</h2>
+        <input
+          type="text"
+          required
+          class="input"
+          name="name"
+          placeholder="Enter task name"
+        />
+        <button class="button" type="submit">Add task</button>
+        <span class="error"></span>
+      </form>
+      <div class="users-grid card">
+        <h2>Users</h2>
+        <ul>
+          {% for user in users %}
+          <li class="user-li" id="user-{{ user.id }}">
+            <div class="rename-wrapper">
+              <label for="user-{{ user.id }}-name">✎</label>
+              <input
+                id="user-{{ user.id }}-name"
+                class="rename-input"
+                type="text"
+                value="{{ user.name }}"
+                name="name"
+                onchange="updateUser(event, '{{ user.id }}')"
+              />
+            </div>
+            <button class="button" onclick="deleteUser('{{ user.id }}')">
+              Delete
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% for task in tasks %}
+      <div class="card" id="task-{{ task.task.id }}">
+        <div class="card-header">
+          <div class="rename-wrapper">
+            <label for="task-{{ task.task.id }}-name">✎</label>
+            <input
+              id="task-{{ task.task.id }}-name"
+              class="rename-input"
+              type="text"
+              value="{{ task.task.name }}"
+              name="name"
+              onchange="updateTask(event, '{{ task.task.id }}')"
+            />
+          </div>
+
+          {% if not task.users %}
+          <button class="button" onclick="deleteTask('{{ task.task.id }}')">
+            Delete task
+          </button>
+          {% endif %}
+        </div>
+        <form
+          action="/api/tasks/{{ task.task.id }}"
+          method="POST"
+          onsubmit="addUser(event, '{{ task.task.id }}')"
+        >
+          <select class="select" required name="user_id">
+            <option disabled selected value>select user</option>
+            {% for user in users %}
+            <option value="{{ user.id }}">{{ user.name }}</option>
+            {% endfor %}
+          </select>
+          <button class="button" type="submit">Add user</button>
+        </form>
+        <div>
+          {% if task.users %}
+          <ul class="task-users-list">
+            {% for user in task.users %}
+            <li class="task-users-li">
+              {{ user.name }}
+              <button
+                class="button"
+                onclick="deleteUserFromTask(
+								'{{ task.task.id }}',
+								'{{ user.id }}'
+							)"
+              >
+                Delete
+              </button>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </main>
+  </body>
 </html>
