@@ -2,6 +2,8 @@
 
 To run the project, you need to have an up-to-date version of `Docker` that supports `Docker Compose`.
 
+Follow the Docker setup [docs](https://docs.docker.com/desktop/)
+
 ## Commands for running the project
 
 1. **Starting the Project**:
