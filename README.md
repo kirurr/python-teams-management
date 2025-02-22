@@ -2,7 +2,7 @@
 
 To run the project, you need to have an up-to-date version of `Docker` that supports `Docker Compose`.
 
-## Commands for Working
+## Commands for running the project
 
 1. **Starting the Project**:
    ```bash
