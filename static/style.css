@@ -1,10 +1,27 @@
+:root {
+  --primary: hsl(257 25% 45%);
+  --primary-container: hsl(263 100% 93%);
+  --primary-fixed: hsl(263 100% 93%);
+  --primary-fixed-dim: hsl(258 100% 87%);
+  --primary-text: hsl(261 100% 18%);
+  --on-primary: hsl(0 0% 100%);
+
+  --border: hsl(263 27% 81%);
+
+  --error: hsl(3 71% 41%);
+
+	--surface: hsl(293 100% 98%);
+}
+
 h2 {
   margin-top: 0;
+	width: fit-content;
 }
 
 h3 {
   margin-top: 0;
-	margin-bottom: 0;
+	width: fit-content;
+  margin-bottom: 0;
 }
 
 ul {
@@ -15,6 +32,8 @@ ul {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  background: var(--surface);
 }
 
 header {
@@ -25,7 +44,7 @@ header {
   max-width: 800px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
 }
 
@@ -34,27 +53,39 @@ header {
   grid-column: span 1;
 }
 
+.input,
+.select {
+  border: 2px solid var(--border);
+}
+
+.tasks {
+	grid-column: 2;
+}
+
+
+
 .card {
+  background: var(--on-primary);
+	border: 2px solid var(--border);
   padding: 1rem;
-  border: 2px solid #ccc;
   border-radius: 5px;
 }
 
 .card-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .rename-input {
   font-size: 1rem;
   font-weight: bold;
   width: 0;
-	min-width: 80%;
+  min-width: 80%;
   display: block;
   border: none;
-  outline: transparent 1px;
+  outline: 2px solid transparent;
   border-radius: 5px;
   padding: 0.2rem;
 }
@@ -65,11 +96,11 @@ header {
 }
 
 .rename-input:hover {
-  outline: 2px solid #ccc;
+  outline: 2px solid var(--border);
 }
 
 .rename-wrapper label {
-  color: #ccc;
+  color: var(--border);
   cursor: pointer;
   font-size: 1rem;
   margin-right: 0.2rem;
@@ -77,32 +108,38 @@ header {
 
 .rename-wrapper {
   position: relative;
-	flex-grow: 1;
+  flex-grow: 1;
   width: fit-content;
   display: flex;
 }
 
 .input {
-  padding: 0.2rem;
-  border: 2px solid #ccc;
+  padding: 0.5rem;
+  font-size: 1rem;
   border-radius: 5px;
 }
 
 .select {
-  padding: 0.2rem;
-  border: 2px solid #ccc;
+	flex-grow: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
   border-radius: 5px;
   background: transparent;
 }
 
 .button {
-  padding: 0.2rem;
-  border: 2px solid #ccc;
+  background-color: var(--primary-fixed);
+  color: var(--primary-text);
+  padding: 0.5rem;
+  transition: background-color 0.2s ease-in-out;
+  border: 2px solid transparent;
+  font-size: 1rem;
+  font-weight: semibold;
   border-radius: 5px;
 }
 
 .button:hover {
-  background-color: #ccc;
+  background-color: var(--primary-fixed-dim);
 }
 
 .button:active {
@@ -110,7 +147,7 @@ header {
 }
 
 .error {
-  color: red;
+  color: var(--error);
 }
 
 .user-li {
@@ -121,7 +158,7 @@ header {
 }
 
 .task-users-list {
-	margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .task-users-li {
@@ -129,4 +166,25 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 0.4rem 0;
+}
+
+.tasks .rename-input {
+  font-size: 1.5rem;
+}
+
+.form-content {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+	.tasks {
+		grid-column: auto;
+	}
+	.container {
+		max-width: 100%;
+		grid-template-columns: 1fr;
+	}
 }

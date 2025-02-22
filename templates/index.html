@@ -21,14 +21,16 @@
         onsubmit="createUser(event)"
       >
         <h2>New user</h2>
-        <input
-          class="input"
-          required
-          type="text"
-          name="name"
-          placeholder="Enter user name"
-        />
-        <button class="button" type="submit">Add user</button>
+				<div class="form-content">
+					<input
+						class="input"
+						required
+						type="text"
+						name="name"
+						placeholder="Enter user name"
+					/>
+					<button class="button" type="submit">Add user</button>
+				</div>
         <span class="error"></span>
       </form>
       <form
@@ -39,14 +41,16 @@
         onsubmit="createTask(event)"
       >
         <h2>New task</h2>
-        <input
-          type="text"
-          required
-          class="input"
-          name="name"
-          placeholder="Enter task name"
-        />
-        <button class="button" type="submit">Add task</button>
+				<div class="form-content">
+					<input
+						type="text"
+						required
+						class="input"
+						name="name"
+						placeholder="Enter task name"
+					/>
+					<button class="button" type="submit">Add task</button>
+				</div>
         <span class="error"></span>
       </form>
       <div class="users-grid card">
@@ -73,7 +77,7 @@
         </ul>
       </div>
       {% for task in tasks %}
-      <div class="card" id="task-{{ task.task.id }}">
+      <div class="card tasks" id="task-{{ task.task.id }}">
         <div class="card-header">
           <div class="rename-wrapper">
             <label for="task-{{ task.task.id }}-name">✎</label>
@@ -98,13 +102,15 @@
           method="POST"
           onsubmit="addUser(event, '{{ task.task.id }}')"
         >
-          <select class="select" required name="user_id">
-            <option disabled selected value>select user</option>
-            {% for user in users %}
-            <option value="{{ user.id }}">{{ user.name }}</option>
-            {% endfor %}
-          </select>
-          <button class="button" type="submit">Add user</button>
+					<div class="form-content">
+						<select class="select" required name="user_id">
+							<option disabled selected value>select user</option>
+							{% for user in users %}
+							<option value="{{ user.id }}">{{ user.name }}</option>
+							{% endfor %}
+						</select>
+						<button class="button" type="submit">Add user</button>
+					</div>
         </form>
         <div>
           {% if task.users %}
